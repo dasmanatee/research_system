@@ -1,0 +1,1 @@
+Should Europe increase or decrease data center investments? use cited sources to defend each position following required format.

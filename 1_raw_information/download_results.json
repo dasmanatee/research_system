@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-01-11T12:18:06.148616",
+  "results": [
+    {
+      "url": "https://www.constructiondive.com/news/data-center-construction-rolls-into-2026/808636/",
+      "status": "SUCCESS",
+      "files": [
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_constructiondive_com_news_data-center-construction-rolls-into-2026_808636_.html",
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_constructiondive_com_news_data-center-construction-rolls-into-2026_808636_.md"
+      ]
+    },
+    {
+      "url": "https://www.datacenterknowledge.com/data-center-construction/new-data-center-developments-december-2025",
+      "status": "SUCCESS",
+      "files": [
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_datacenterknowledge_com_data-center-construction_new-data-center-developments-december-2025.html",
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_datacenterknowledge_com_data-center-construction_new-data-center-developments-december-2025.md"
+      ]
+    },
+    {
+      "url": "https://www.bisnow.com/national/news/data-center-development/whats-next-for-data-center-development-industry-leaders-make-2026-predictions-132606",
+      "status": "SUCCESS",
+      "files": [
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_bisnow_com_national_news_data-center-development_whats-next-for-data-center-development-industry.html",
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_bisnow_com_national_news_data-center-development_whats-next-for-data-center-development-industry.md"
+      ]
+    },
+    {
+      "url": "https://www.datacenterknowledge.com/data-center-construction/2025-s-biggest-data-center-construction-stories-a-year-in-review",
+      "status": "SUCCESS",
+      "files": [
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_datacenterknowledge_com_data-center-construction_2025-s-biggest-data-center-construction-stories.html",
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_datacenterknowledge_com_data-center-construction_2025-s-biggest-data-center-construction-stories.md"
+      ]
+    },
+    {
+      "url": "https://www.constructiondive.com/news/data-center-projects-construction-2025/738160/",
+      "status": "SUCCESS",
+      "files": [
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_constructiondive_com_news_data-center-projects-construction-2025_738160_.html",
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_constructiondive_com_news_data-center-projects-construction-2025_738160_.md"
+      ]
+    },
+    {
+      "url": "https://www.networkenvironments.com/weekly-digest-u-s-data%E2%80%91center-construction-news-dec-30-jan-6-2026/",
+      "status": "SUCCESS",
+      "files": [
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_networkenvironments_com_weekly-digest-u-s-data_E2_80_91center-construction-news-dec-30-jan-6-202.html",
+        "C:\\Users\\joshu\\research_system\\1_raw_information\\www_networkenvironments_com_weekly-digest-u-s-data_E2_80_91center-construction-news-dec-30-jan-6-202.md"
+      ]
+    },
+    {
+      "url": "https://www.blackridgeresearch.com/blog/upcoming-largest-data-center-projects-in-united-states-usa",
+      "status": "FAILED",
+      "error": "HTTPSConnectionPool(host='www.blackridgeresearch.com', port=443): Read timed out. (read timeout=30)"
+    }
+  ]
+}

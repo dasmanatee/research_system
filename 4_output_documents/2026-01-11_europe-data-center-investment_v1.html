@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Should Europe Increase Data Center Investments?</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    :root {
+      --primary: #121212;
+      --secondary: #666666;
+      --accent: #326891;
+      --background: #FFFFFF;
+      --light-gray: #F7F7F7;
+      --border: #EBEBEB;
+      --increase-color: #377eb8;
+      --decrease-color: #e41a1c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px;
+      color: var(--primary);
+      line-height: 1.75;
+      background: var(--background);
+    }
+
+    /* Typography */
+    h1 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .deck {
+      font-size: 1.25rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    .byline {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.875rem;
+      color: var(--secondary);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .byline time {
+      color: var(--secondary);
+    }
+
+    .lead {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-top: 1rem;
+      border-top: 2px solid var(--primary);
+    }
+
+    h3 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      font-size: 1.125rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Position boxes */
+    .position-box {
+      background: var(--light-gray);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid;
+    }
+
+    .position-box.increase {
+      border-left-color: var(--increase-color);
+    }
+
+    .position-box.decrease {
+      border-left-color: var(--decrease-color);
+    }
+
+    .position-box h3 {
+      margin-top: 0;
+      color: inherit;
+    }
+
+    .position-box.increase h3 {
+      color: var(--increase-color);
+    }
+
+    .position-box.decrease h3 {
+      color: var(--decrease-color);
+    }
+
+    /* Chart styles */
+    .chart-container {
+      margin: 2rem 0;
+      background: var(--light-gray);
+      padding: 1.5rem;
+    }
+
+    .chart-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .chart-subtitle {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.875rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    #investment-chart {
+      width: 100%;
+    }
+
+    .axis text {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.75rem;
+      fill: var(--secondary);
+    }
+
+    .axis path,
+    .axis line {
+      stroke: var(--border);
+    }
+
+    .axis .domain {
+      display: none;
+    }
+
+    .bar-label {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.75rem;
+      fill: var(--primary);
+      font-weight: 500;
+    }
+
+    .grid line {
+      stroke: var(--border);
+      stroke-opacity: 0.7;
+    }
+
+    .grid path {
+      stroke-width: 0;
+    }
+
+    /* Evidence list */
+    .evidence-point {
+      margin-bottom: 1.25rem;
+    }
+
+    .evidence-point strong {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Methodology and sources */
+    .methodology {
+      background: var(--light-gray);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      font-size: 0.9375rem;
+    }
+
+    .methodology h3 {
+      margin-top: 0;
+    }
+
+    .sources {
+      font-size: 0.875rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .sources h3 {
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .sources p {
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+      padding-left: 2rem;
+      text-indent: -2rem;
+    }
+
+    .sources a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .sources a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .deck {
+        font-size: 1.125rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .position-box {
+        padding: 1rem;
+      }
+    }
+
+    /* Accessibility: data table fallback */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <article>
+    <header>
+      <h1>Should Europe Increase Data Center Investments?</h1>
+      <p class="deck">A balanced analysis of the evidence for expanding versus constraining European data center development</p>
+      <p class="byline">Research Analysis | <time datetime="2026-01-11">January 11, 2026</time></p>
+    </header>
+
+    <p class="lead">As AI-driven demand strains global computing infrastructure, Europe faces a pivotal decision: accelerate investment to capture economic benefits and maintain digital sovereignty, or pause expansion amid regulatory uncertainty, power constraints, and warnings of a potential market bubble.</p>
+
+    <!-- Investment Chart -->
+    <div class="chart-container" role="figure" aria-labelledby="chart-title chart-subtitle">
+      <p class="chart-title" id="chart-title">European Data Center Investment Announcements</p>
+      <p class="chart-subtitle" id="chart-subtitle">Selected major investments, in billions of euros (2025)</p>
+      <div id="investment-chart"></div>
+
+      <!-- Accessible data table -->
+      <table class="visually-hidden" aria-label="European Data Center Investment Data">
+        <caption>Major European data center investments announced in 2025</caption>
+        <thead>
+          <tr>
+            <th>Company/Project</th>
+            <th>Investment (Billions EUR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Goodman + CPP</td><td>9.0</td></tr>
+          <tr><td>Google (Germany)</td><td>5.5</td></tr>
+          <tr><td>Iberdrola + Echelon</td><td>2.0</td></tr>
+          <tr><td>ACS + BlackRock (Spain)</td><td>2.0</td></tr>
+          <tr><td>GTR European Expansion</td><td>2.0</td></tr>
+          <tr><td>AtlasEdge (Lisbon)</td><td>0.29</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Position 1: Increase -->
+    <h2>The Case for Increasing Investment</h2>
+
+    <div class="position-box increase">
+      <h3>Core Argument</h3>
+      <p style="margin-bottom: 0;">Europe must accelerate data center investment to maintain digital sovereignty, capture economic benefits from AI-driven growth, and leverage its unique sustainability advantages.</p>
+    </div>
+
+    <div class="evidence-point">
+      <strong>1. Major investments signal strong market confidence</strong>
+      <p>Google plans to invest &euro;5.5 billion into German computing resources over four years, including two facilities in the Frankfurt region. Digital Realty launched its 12th data center in the Netherlands, adding 27 MW of IT capacity (Chapman, 2025a).</p>
+    </div>
+
+    <div class="evidence-point">
+      <strong>2. Significant capital is flowing into European expansion</strong>
+      <p>GTR secured $2 billion to "supercharge European data center expansion." Goodman and CPP forged a $9 billion deal to "power Europe's data center boom." In Spain, ACS and BlackRock are collaborating on a &euro;2 billion project targeting 1.7 GW of capacity (Chapman, 2025a).</p>
+    </div>
+
+    <div class="evidence-point">
+      <strong>3. Europe offers unique sustainability advantages</strong>
+      <p>AtlasEdge secured $292 million in sustainability-linked funding requiring 100% renewable energy for its Lisbon data centers. Denmark's atNorth will use excess heat from its facility to warm over 8,000 homes by 2028. Spain opened Europe's first multimodal quantum-powered data center (Chapman, 2025a).</p>
+    </div>
+
+    <div class="evidence-point">
+      <strong>4. Global demand continues to outpace supply</strong>
+      <p>"The supply of new data center capacity has remained well behind the AI-driven demand," despite record construction spending. "The bigger risk heading into 2026 isn't overbuilding. It will likely be underestimating how fast AI-driven workloads scale" (Bisnow, 2025).</p>
+    </div>
+
+    <!-- Position 2: Decrease -->
+    <h2>The Case for Caution</h2>
+
+    <div class="position-box decrease">
+      <h3>Core Argument</h3>
+      <p style="margin-bottom: 0;">Europe faces structural barriers&mdash;regulatory constraints, power limitations, and overbuild risk&mdash;that make aggressive investment premature until market conditions stabilize.</p>
+    </div>
+
+    <div class="evidence-point">
+      <strong>1. Regulatory scrutiny poses significant risk</strong>
+      <p>Major power outages have led antitrust watchdogs to consider new restrictions on Big Tech. The European Commission is investigating Amazon, Microsoft, and Google, which could result in steep penalties (Chapman, 2025a).</p>
+    </div>
+
+    <div class="evidence-point">
+      <strong>2. Power availability constraints limit development</strong>
+      <p>Power availability has become "the dominant factor in data center site selection," with grid capacity tight in established markets. Developers report grid connection timelines exceeding five years in some markets (Bisnow, 2025; Burnside, 2025).</p>
+    </div>
+
+    <div class="evidence-point">
+      <strong>3. Industry experts warn of bubble risk</strong>
+      <p>"Just like the dot-com bubble in the early 2000s, massive amounts of infrastructure are being built ahead of proven, durable demand," warns Parametrix CEO Jonathan Hatzor. TTK USA's Amanda Garcia predicts: "Some companies will overbuild. Others will overpromise. What we are likely to see is not a crash but a reset" (Bisnow, 2025).</p>
+    </div>
+
+    <div class="evidence-point">
+      <strong>4. Community opposition is becoming systematic</strong>
+      <p>Opposition is "steadily becoming more organized and more effective." Environmental groups and litigators are developing "plug-and-play playbooks," making opposition in 2026 "less episodic and more systematic" (Bisnow, 2025).</p>
+    </div>
+
+    <div class="evidence-point">
+      <strong>5. Water scarcity presents operational risk</strong>
+      <p>Rising AI workloads are increasing water consumption, and "water scarcity in key markets is becoming a credit and operational risk for hyperscale data center operators" (Burnside, 2025).</p>
+    </div>
+
+    <!-- Methodology -->
+    <div class="methodology">
+      <h3>Methodology</h3>
+      <p>This analysis synthesizes evidence from three industry sources published in December 2025: Data Center Knowledge's coverage of new developments and year-in-review reporting, and Bisnow's industry outlook featuring expert predictions. Sources were selected for recency, specificity of data, and inclusion of named expert commentary. All investment figures are as reported; currency conversions reflect approximate rates at time of announcement.</p>
+      <p><strong>Limitations:</strong> Analysis focuses on announced investments rather than completed projects. Some figures may represent multi-year commitments. Regional breakdown limited to major publicly announced deals.</p>
+    </div>
+
+    <!-- Sources -->
+    <div class="sources">
+      <h3>References</h3>
+      <p>Bisnow. (2025, December). How power, politics and AI will shape data center development in 2026. <em>Bisnow</em>. <a href="https://www.bisnow.com/national/news/data-center-development/whats-next-for-data-center-development-industry-leaders-make-2026-predictions-132606">https://www.bisnow.com/national/news/data-center-development/whats-next-for-data-center-development-industry-leaders-make-2026-predictions-132606</a></p>
+      <p>Burnside, A. (2025, December 18). 2025's biggest data center construction stories: A year in review. <em>Data Center Knowledge</em>. <a href="https://www.datacenterknowledge.com/data-center-construction/2025-s-biggest-data-center-construction-stories-a-year-in-review">https://www.datacenterknowledge.com/data-center-construction/2025-s-biggest-data-center-construction-stories-a-year-in-review</a></p>
+      <p>Chapman, H. (2025a, December 3). New data center developments: December 2025. <em>Data Center Knowledge</em>. <a href="https://www.datacenterknowledge.com/data-center-construction/new-data-center-developments-december-2025">https://www.datacenterknowledge.com/data-center-construction/new-data-center-developments-december-2025</a></p>
+    </div>
+
+  </article>
+
+  <script>
+    // Investment data (in billions EUR)
+    const data = [
+      { company: "Goodman + CPP", value: 9.0 },
+      { company: "Google (Germany)", value: 5.5 },
+      { company: "Iberdrola + Echelon", value: 2.0 },
+      { company: "ACS + BlackRock", value: 2.0 },
+      { company: "GTR Expansion", value: 2.0 },
+      { company: "AtlasEdge (Lisbon)", value: 0.29 }
+    ];
+
+    // Chart dimensions
+    const containerWidth = document.getElementById('investment-chart').offsetWidth;
+    const margin = { top: 20, right: 60, bottom: 20, left: 130 };
+    const width = containerWidth - margin.left - margin.right;
+    const height = data.length * 45;
+
+    // Create SVG
+    const svg = d3.select("#investment-chart")
+      .append("svg")
+      .attr("viewBox", `0 0 ${containerWidth} ${height + margin.top + margin.bottom}`)
+      .attr("preserveAspectRatio", "xMidYMid meet")
+      .attr("role", "img")
+      .attr("aria-label", "Bar chart showing European data center investments. Goodman + CPP leads with 9 billion euros.")
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // Scales
+    const x = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.value) * 1.1])
+      .range([0, width]);
+
+    const y = d3.scaleBand()
+      .domain(data.map(d => d.company))
+      .range([0, height])
+      .padding(0.3);
+
+    // Grid lines
+    svg.append("g")
+      .attr("class", "grid")
+      .call(d3.axisTop(x)
+        .ticks(5)
+        .tickSize(-height)
+        .tickFormat("")
+      );
+
+    // Y axis
+    svg.append("g")
+      .attr("class", "axis")
+      .call(d3.axisLeft(y).tickSize(0))
+      .select(".domain").remove();
+
+    // Bars
+    svg.selectAll(".bar")
+      .data(data)
+      .join("rect")
+      .attr("class", "bar")
+      .attr("x", 0)
+      .attr("y", d => y(d.company))
+      .attr("width", d => x(d.value))
+      .attr("height", y.bandwidth())
+      .attr("fill", "#377eb8")
+      .attr("rx", 2);
+
+    // Value labels
+    svg.selectAll(".bar-label")
+      .data(data)
+      .join("text")
+      .attr("class", "bar-label")
+      .attr("x", d => x(d.value) + 8)
+      .attr("y", d => y(d.company) + y.bandwidth() / 2)
+      .attr("dy", "0.35em")
+      .text(d => d.value >= 1 ? `€${d.value}B` : `€${(d.value * 1000).toFixed(0)}M`);
+
+    // Handle resize
+    window.addEventListener('resize', () => {
+      const newWidth = document.getElementById('investment-chart').offsetWidth;
+      d3.select("#investment-chart svg")
+        .attr("viewBox", `0 0 ${newWidth} ${height + margin.top + margin.bottom}`);
+    });
+  </script>
+
+</body>
+</html>
